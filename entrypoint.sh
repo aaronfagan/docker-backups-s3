@@ -29,5 +29,5 @@ echo "${TIME} root /root/backups.sh > /proc/1/fd/1" > /etc/cron.d/backups
 
 /etc/init.d/cron start > /dev/null 2>&1
 
-echo "Cron is running!"
+echo "AWS S3 Backups is running!"
 exec $(which tail) -f /dev/null
