@@ -1,5 +1,5 @@
 # Docker Backups to Amazon S3
-This image is an always-on solution to automatically back up mounted volumes to S3.
+This image is an always-on solution to automatically back up mounted volumes to Amazon S3.
 
 ## Environment Variables
 Variables without default are required.
