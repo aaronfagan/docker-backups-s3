@@ -1,0 +1,16 @@
+version: '3.5'
+services:
+  backups:
+    container_name: backups
+    hostname: backups
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - ${DIR_MOUNT}:/root/scripts
+      - /data:/data
+    restart: unless-stopped
+networks:
+  default:
+    external:
+      name: aaronfagan-ca

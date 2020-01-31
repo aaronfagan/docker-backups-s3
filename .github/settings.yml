@@ -1,9 +1,9 @@
 repository:
-  # name: template-repo
-  description: ""
-  homepage: ""
+  name: docker-backups-s3
+  description: "Backup your Docker volumes to S3 on a pre-defined cron schedule."
+  homepage: "https://www.aaronfagan.ca/"
   default_branch: master
-  # private: true
+  private: true
   has_issues: true
   has_wiki: false
   has_downloads: false
