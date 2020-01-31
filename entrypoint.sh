@@ -4,7 +4,6 @@ shopt -s dotglob
 
 VARS_REQUIRED=(
 	AWS_DEFAULT_REGION
-    AWS_DEFAULT_OUTPUT
     CRON_SCHEDULE
     TZ
 )

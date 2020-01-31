@@ -5,9 +5,11 @@ This image is an always-on solution to automatically back up mounted volumes to 
 Variables without default are required.
 
 **`AWS_ACCESS_KEY_ID`**
+- **Note:** Required only if not hosting on AWS, or not using EC2 IAM roles.
 - Your IAM user key.
 
 **`AWS_SECRET_ACCESS_KEY`**
+- **Note:** Required only if not hosting on AWS, or not using EC2 IAM roles.
 - Your IAM user secret.
 
 **`AWS_DEFAULT_REGION`**
