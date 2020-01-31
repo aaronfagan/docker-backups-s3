@@ -19,6 +19,10 @@ Variables without default are required.
 - **Default:** `0 * * * *` (Every hour)
 - Standard cron format. How often to run back ups.
 
+**`S3_PATH`**
+- **Example:** `s3://my-bucket/path/to/backups`
+- The AWS S3 bucket URL and path to upload backups to.
+
 **`TZ`**
 - Your preferred timezone.
 
