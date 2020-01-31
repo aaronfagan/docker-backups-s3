@@ -7,7 +7,7 @@ for FOLDER in /data/*; do
 	echo -ne "> Backing up ${FOLDER}..."
 	(
 		set -e
-		DIR_TEMP="${DIR_TEMP}/${FOLDER_NAME}_`date +%s`"
+		DIR_TEMP="${DIR_TEMP}/${FOLDER_NAME}_${DATE}"
 		FILENAME=$(echo ${FOLDER_NAME}_${APP_NAME}_${DATE} | tr A-Z a-z)
 		FILENAME=${FILENAME// /-}
 		FILENAME="${FILENAME//./-}.tar.gz"
