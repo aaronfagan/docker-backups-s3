@@ -1,7 +1,7 @@
 repository:
   name: docker-backups-s3
   description: "Backup your Docker volumes to Amazon S3 on a pre-defined cron schedule."
-  homepage: "https://www.aaronfagan.ca/"
+  homepage: "https://hub.docker.com/r/aaronfagan/backups-s3"
   default_branch: master
   private: false
   has_issues: true
