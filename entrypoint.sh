@@ -23,9 +23,6 @@ ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime && \
 echo "${TZ}" > /etc/timezone && \
 dpkg-reconfigure -f noninteractive tzdata > /dev/null 2>&1
 
-aws configure set default.region ${AWS_DEFAULT_REGION}
-aws configure set default.output json
-
 [ "${CRON}" == "minutely" ] && TIME="* * * * *" || TIME="@${CRON}"
 echo "${TIME} root /root/backups.sh > /proc/1/fd/1" > /etc/cron.d/backups
 
