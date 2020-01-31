@@ -25,8 +25,8 @@ ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime && \
 echo "${TZ}" > /etc/timezone && \
 dpkg-reconfigure -f noninteractive tzdata > /dev/null 2>&1
 
-[ "${CRON_SCHEDULE}" == "minutely" ] && TIME="* * * * *" || TIME="@${CRON_SCHEDULE}"
-echo "${TIME} root /root/backups.sh > /proc/1/fd/1" > /etc/cron.d/backups
+[ "${CRON_SCHEDULE}" == "minutely" ] && CRON="* * * * *" || CRON="@${CRON_SCHEDULE}"
+echo "${CRON} root /root/backups.sh > /proc/1/fd/1" > /etc/cron.d/backups
 
 /etc/init.d/cron start > /dev/null 2>&1
 
