@@ -18,16 +18,16 @@ Variables without default are required.
 **`AWS_DEFAULT_REGION`**
 - The AWS region your S3 bucket is hosted in.
 
-**`BACKUPS_S3_PATH`**
-- **Example:** `s3://my-bucket/path/to/backups`
-- The AWS S3 bucket URL and path to upload backups to.
-
 **`DIR_MOUNT`**
 - The directory on your host that you want to backup.
 
 **`CRON_SCHEDULE`**
 - **Default:** `0 * * * *` (Every hour)
 - Standard cron format. How often to run back ups.
+
+**`S3_PATH`**
+- **Example:** `s3://my-bucket/path/to/backups`
+- The AWS S3 bucket URL and path to upload backups to.
 
 **`TZ`**
 - Your preferred timezone.
