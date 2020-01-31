@@ -18,7 +18,7 @@ for VAR in "${VARS_REQUIRED[@]}"; do
 done
 if [ "${VAR_ERROR}" ]; then exit 1; fi
 
-cp -rf /opt/sbackups.sh /root/backups.sh
+cp -rf /opt/backups.sh /root/backups.sh
 chmod +x /root/backups.sh
 
 ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime && \
