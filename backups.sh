@@ -8,7 +8,7 @@ for FOLDER in /data/*; do
 	(
 		set -e
 		DIR_TEMP="${DIR_TEMP}/${FOLDER_NAME}_`date +%s`"
-		FILENAME=$(echo ${FOLDER_NAME}_${DATE}_${APP_NAME} | tr A-Z a-z)
+		FILENAME=$(echo ${FOLDER_NAME}_${APP_NAME}_${DATE} | tr A-Z a-z)
 		FILENAME=${FILENAME// /-}
 		FILENAME="${FILENAME//./-}.tar.gz"
 		mkdir -p "${DIR_TEMP}"
