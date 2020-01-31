@@ -3,9 +3,10 @@ set -e
 shopt -s dotglob
 
 VARS_REQUIRED=(
+	APP_NAME
 	AWS_DEFAULT_REGION
-    CRON_SCHEDULE
-    TZ
+	CRON_SCHEDULE
+	TZ
 )
 
 for VAR in "${VARS_REQUIRED[@]}"; do
