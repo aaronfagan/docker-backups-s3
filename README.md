@@ -19,7 +19,7 @@ Variables without default are required.
 - The AWS region your S3 bucket is hosted in.
 
 **`DIR_MOUNT`**
-- The directory on your host that you want to backup.
+- The directory on your host that you want to backup. Must be mounted to `/data` in your container.
 
 **`CRON_SCHEDULE`**
 - Standard cron format. How often to run back ups.
