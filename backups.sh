@@ -1,5 +1,5 @@
 #!/bin/bash
-DATE=`date +%Y-%m-%d`
+DATE=`date +%Y-%m-%d_%H-%M-%S`
 DIR_TEMP="/tmp/docker-backups"
 
 for FOLDER in /data/*; do
