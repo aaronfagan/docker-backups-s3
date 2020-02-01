@@ -17,3 +17,4 @@ for FOLDER in /data/*; do
 		rm -rf "${DIR_TEMP}"
 	)
 	[ "$?" -ne "0" ] && echo -ne "failed!\n" || echo -ne "success!\n"
+done
