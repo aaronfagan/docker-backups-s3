@@ -13,7 +13,7 @@ for FOLDER in /data/*; do
 		FILENAME="${FILENAME//./-}.tar.gz"
 		mkdir -p "${DIR_TEMP}"
 		tar -zcf "${DIR_TEMP}/${FILENAME}" -C "${FOLDER}" .
-		aws s3 mv "${DIR_TEMP}/${FILENAME}" "${S3_PATH}/${APP_NAME}/${DATE}/${FILENAME}" --quiet
+		/usr/bin/aws s3 mv "${DIR_TEMP}/${FILENAME}" "${S3_PATH}/${APP_NAME}/${DATE}/${FILENAME}" --quiet
 	)
 	if [ "$?" -ne "0" ]; then
 		rm -rf "${DIR_TEMP}/${FOLDER_NAME}_"*
