@@ -25,6 +25,7 @@ Variables without default are required.
 - The directory on your host that you want to backup.
 
 **`CRON`**
+- **Default:** `0 0 * * *` (Daily, midnight)
 - Standard cron format. How often to run backups.
 
 **`S3_PATH`**
