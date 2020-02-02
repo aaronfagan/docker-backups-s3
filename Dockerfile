@@ -1,5 +1,7 @@
 FROM ubuntu:18.04
 
+ENV CRON="0 * * * *"
+
 RUN apt-get update && apt-get install -y \
 		awscli \
 		cron \
