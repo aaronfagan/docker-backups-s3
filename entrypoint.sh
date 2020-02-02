@@ -31,8 +31,8 @@ dpkg-reconfigure -f noninteractive tzdata > /dev/null 2>&1
 aws configure set default.region ${AWS_DEFAULT_REGION}
 aws configure set default.output json
 
-[ "${CRON}" == "minutely" ] && CRON_SCHEDULE="* * * * *" || CRON_SCHEDULE="@${CRON}"
-echo "${CRON_SCHEDULE} root /root/backups.sh --app-name '${APP_NAME}' --dir-backup '${DIR_BACKUP}' --s3-path '${S3_PATH}' > /proc/1/fd/1" > /etc/cron.d/backups
+# [ "${CRON}" == "minutely" ] && CRON_SCHEDULE="* * * * *" || CRON_SCHEDULE="@${CRON}"
+echo "${CRON} root /root/backups.sh --app-name '${APP_NAME}' --dir-backup '${DIR_BACKUP}' --s3-path '${S3_PATH}' > /proc/1/fd/1" > /etc/cron.d/backups
 
 /etc/init.d/cron start > /dev/null 2>&1
 
