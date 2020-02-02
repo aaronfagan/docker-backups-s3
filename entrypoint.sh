@@ -5,7 +5,8 @@ shopt -s dotglob
 VARS_REQUIRED=(
 	APP_NAME
 	AWS_DEFAULT_REGION
-	CRON_SCHEDULE
+	CRON
+	DIR_BACKUP
 	S3_PATH
 	TZ
 )
@@ -25,8 +26,13 @@ ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime && \
 echo "${TZ}" > /etc/timezone && \
 dpkg-reconfigure -f noninteractive tzdata > /dev/null 2>&1
 
-[ "${CRON_SCHEDULE}" == "minutely" ] && CRON="* * * * *" || CRON="@${CRON_SCHEDULE}"
-echo "${CRON} root /root/backups.sh > /proc/1/fd/1" > /etc/cron.d/backups
+[ "${AWS_ACCESS_KEY_ID}" ] && aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID}
+[ "${AWS_SECRET_ACCESS_KEY}" ] && aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY}
+aws configure set default.region ${AWS_DEFAULT_REGION}
+aws configure set default.output json
+
+[ "${CRON}" == "minutely" ] && CRON_SCHEDULE="* * * * *" || CRON_SCHEDULE="@${CRON_SCHEDULE}"
+echo "${CRON_SCHEDULE} root /root/backups.sh --app-name '${APP_NAME}' --dir-backup '${DIR_BACKUP}' --s3-path '${S3_PATH}' > /proc/1/fd/1" > /etc/cron.d/backups
 
 /etc/init.d/cron start > /dev/null 2>&1
 
