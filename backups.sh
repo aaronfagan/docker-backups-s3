@@ -4,7 +4,7 @@ DIR_TEMP="/tmp/docker-backups"
 
 for FOLDER in /data/*; do
 	FOLDER_NAME=${FOLDER//\/data\//}
-	echo -ne "[`date +%Y/%m/%d %H:%M:%S`] Backing up ${FOLDER}..."
+	echo -ne "[$(date +'%F %T')] Backing up ${FOLDER}..."
 	(
 		set -e
 		DIR_TEMP="${DIR_TEMP}/${FOLDER_NAME}_${DATE}"
