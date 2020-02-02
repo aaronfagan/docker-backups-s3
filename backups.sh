@@ -59,7 +59,7 @@ if [ -z "${APP_NAME}" ] || [ -z "${DIR_BACKUP}" ] || [ -z "${S3_PATH}" ]; then
 	usage
 	exit 0
 else
-	DATE=`date +%Y-%m-%d`
+	DATE=`date +%Y-%m-%d_%H-%M-%S`
 	DIR_TEMP="/tmp/docker-backups"
 	for DIR in ${DIR_BACKUP}/*; do
 		DIR_NAME=${DIR//\/data\//}
