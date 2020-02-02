@@ -37,28 +37,31 @@ Variables without default are required.
 ## IAM Policy (Example)
 ```
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "route53:GetChange",
-                "route53:ListHostedZonesByName"
-            ],
-            "Resource": [
-                "*"
-            ]
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "route53:ChangeResourceRecordSets"
-            ],
-            "Resource": [
-                "arn:aws:route53:::hostedzone/YOUR_HOSTED_ZONE_ID"
-            ]
-        }
-    ]
+   "Version":"2012-10-17",
+   "Statement":[
+      {
+         "Effect":"Allow",
+         "Action":[
+            "s3:ListAllMyBuckets"
+         ],
+         "Resource":"arn:aws:s3:::*"
+      },
+      {
+         "Effect":"Allow",
+         "Action":[
+            "s3:ListBucket",
+            "s3:GetBucketLocation"
+         ],
+         "Resource":"arn:aws:s3:::examplebucket"
+      },
+      {
+         "Effect":"Allow",
+         "Action":[
+            "s3:PutObject"
+         ],
+         "Resource":"arn:aws:s3:::examplebucket/*"
+      }
+   ]
 }
 ```
 
