@@ -50,6 +50,7 @@ while [[ $# -gt 0 ]]; do
 			exit 0
 		;;
 	esac
+done
 
 if [ -z "${APP_NAME}" ] || [ -z "${DIR_BACKUP}" ] || [ -z "${S3_PATH}" ]; then
 	if [ -z "${APP_NAME}" ]; then echo -ne "\033[0;31mERROR:\033[0;37m --app-name arguement is required.\033[0m\n"; fi
