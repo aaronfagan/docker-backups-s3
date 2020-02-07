@@ -73,7 +73,7 @@ else
 			FILENAME="${FILENAME//./-}.tar.gz"
 			mkdir -p "${DIR_TEMP}"
 			tar -zcf "${DIR_TEMP}/${FILENAME}" -C "${DIR}" .
-			/usr/bin/aws s3 mv "${DIR_TEMP}/${FILENAME}" "${S3_PATH}/${APP_NAME}/${DATE}/${FILENAME}" --quiet
+			/usr/bin/aws s3 mv "${DIR_TEMP}/${FILENAME}" "${S3_PATH}/${DATE}/${APP_NAME}/${FILENAME}" --quiet
 			rm -rf "${DIR_TEMP}"
 		)
 		[ "$?" -ne "0" ] && echo -ne "failed!\n" || echo -ne "success!\n"
