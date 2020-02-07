@@ -59,15 +59,16 @@ if [ -z "${APP_NAME}" ] || [ -z "${DIR_BACKUP}" ] || [ -z "${S3_PATH}" ]; then
 	usage
 	exit 0
 else
-	DATE=`date +%Y-%m-%d_%H-%M-%S`
+	DATE=`date +%Y-%m-%d`
+	TIME=`date +%H-%M-%S`
 	DIR_TEMP="/tmp/docker-backups"
 	for DIR in ${DIR_BACKUP}/*; do
 		DIR_NAME=${DIR//\/data\//}
 		echo -ne "[$(date +'%F %T')] Backing up ${DIR}..."
 		(
 			set -e
-			DIR_TEMP="${DIR_TEMP}/${DIR_NAME}_${DATE}"
-			FILENAME="$(echo ${DIR_NAME}_${APP_NAME}_${DATE} | tr A-Z a-z)"
+			DIR_TEMP="${DIR_TEMP}/${DIR_NAME}_${DATE}_${TIME}"
+			FILENAME="$(echo ${APP_NAME}_${DIR_NAME}_${DATE}_${TIME} | tr A-Z a-z)"
 			FILENAME="${FILENAME// /-}"
 			FILENAME="${FILENAME//./-}.tar.gz"
 			mkdir -p "${DIR_TEMP}"
