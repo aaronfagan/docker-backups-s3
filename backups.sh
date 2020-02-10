@@ -68,7 +68,7 @@ else
 		(
 			set -e
 			DIR_TEMP="${DIR_TEMP}/${DIR_NAME}_${DATE}_${TIME}"
-			FILENAME="$(echo ${APP_NAME}_${DIR_NAME}_${DATE}_${TIME} | tr A-Z a-z)"
+			FILENAME="$(echo ${DIR_NAME}_${APP_NAME}_${DATE}_${TIME} | tr A-Z a-z)"
 			FILENAME="${FILENAME// /-}"
 			FILENAME="${FILENAME//./-}.tar.gz"
 			mkdir -p "${DIR_TEMP}"
