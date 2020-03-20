@@ -26,7 +26,7 @@ Variables without default are required.
 
 **`CREATE_LATEST`**
 - **Default:** `false`
-- Whether to create a `/latest` folder at your `S3_PATH`, with your most recent backup.
+- Whether to create a `/latest` folder at your `S3_PATH`, with your most recent backups.
 
 **`CRON`**
 - **Default:** `0 0 * * *` (Daily, midnight)
