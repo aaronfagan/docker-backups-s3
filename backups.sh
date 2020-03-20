@@ -67,7 +67,7 @@ else
 			set -e
 			DIR_TEMP="${DIR_TEMP}/${DIR_NAME}_${DATE}_${TIME}"
 			FILENAME="$(echo ${DIR_NAME}_${APP_NAME}_${DATE}_${TIME} | tr A-Z a-z | tr ' ' '-' | tr '.' '-').tar.gz"
-			FILENAME_LATEST="$(echo ${APP_NAME}_latest | tr A-Z a-z | tr ' ' '-' | tr '.' '-').tar.gz"
+			LATEST="$(echo ${DIR_NAME}_latest | tr A-Z a-z | tr ' ' '-' | tr '.' '-').tar.gz"
 			mkdir -p "${DIR_TEMP}"
 			tar -zcf "${DIR_TEMP}/${FILENAME}" -C "${DIR}" .
 			/usr/bin/aws s3 cp "${DIR_TEMP}/${FILENAME}" "${S3_PATH}/${DATE}/${APP_NAME}/${FILENAME}" --quiet
