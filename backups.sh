@@ -80,7 +80,6 @@ else
 			tar -zcf "${DIR_TEMP}/${FILENAME}" -C "${DIR}" .
 			/usr/bin/aws s3 cp "${DIR_TEMP}/${FILENAME}" "${S3_PATH}/${DATE}/${APP_NAME}/${FILENAME}" --quiet
 			if [ -n "${CREATE_LATEST}" ]; then
-				echo 'create latest'
 				/usr/bin/aws s3 cp "${S3_PATH}/${DATE}/${APP_NAME}/${FILENAME}" "${S3_PATH}/latest/${APP_NAME}/${FILENAME_LATEST}" --quiet
 			fi
 			rm -rf "${DIR_TEMP}"
