@@ -24,6 +24,9 @@ Variables without default are required.
 **`DIR_MOUNT`**
 - The directory on your host that you want to backup.
 
+**`CREATE_LATEST`**
+- Whether to create a `/latest` folder on AS S3, with your most recent backup.
+
 **`CRON`**
 - **Default:** `0 0 * * *` (Daily, midnight)
 - Standard cron format. How often to run backups.
