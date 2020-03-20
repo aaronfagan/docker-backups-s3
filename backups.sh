@@ -6,9 +6,9 @@ Usage:
     ./$(basename "$0") [options]
 
 Options:
-    --app-name     The name of your app. REQUIRED.
-    --dir-backup   The directory to backup. REQUIRED.
-    --s3-path      The full Amazon S3 bucket path. REQUIRED.
+    --app-name         The name of your app. REQUIRED.
+    --dir-backup       The directory to backup. REQUIRED.
+    --s3-path          The full Amazon S3 bucket path. REQUIRED.
 
 Example:
     ./$(basename "$0") \\
@@ -26,13 +26,11 @@ while [[ $# -gt 0 ]]; do
 			shift
 			shift
 		;;
-
 		--dir-backup)
 			DIR_BACKUP="${2:-$DIR_BACKUP}"
 			shift
 			shift
 		;;
-
 		--s3-path)
 			S3_PATH="${2:-$S3_PATH}"
 			shift
@@ -68,12 +66,11 @@ else
 		(
 			set -e
 			DIR_TEMP="${DIR_TEMP}/${DIR_NAME}_${DATE}_${TIME}"
-			FILENAME="$(echo ${DIR_NAME}_${APP_NAME}_${DATE}_${TIME} | tr A-Z a-z)"
-			FILENAME="${FILENAME// /-}"
-			FILENAME="${FILENAME//./-}.tar.gz"
+			FILENAME="$(echo ${DIR_NAME}_${APP_NAME}_${DATE}_${TIME} | tr A-Z a-z | tr ' ' '-' | tr '.' '-').tar.gz"
+			FILENAME_LATEST="$(echo ${APP_NAME}_latest | tr A-Z a-z | tr ' ' '-' | tr '.' '-').tar.gz"
 			mkdir -p "${DIR_TEMP}"
 			tar -zcf "${DIR_TEMP}/${FILENAME}" -C "${DIR}" .
-			/usr/bin/aws s3 mv "${DIR_TEMP}/${FILENAME}" "${S3_PATH}/${DATE}/${APP_NAME}/${FILENAME}" --quiet
+			/usr/bin/aws s3 cp "${DIR_TEMP}/${FILENAME}" "${S3_PATH}/${DATE}/${APP_NAME}/${FILENAME}" --quiet
 			rm -rf "${DIR_TEMP}"
 		)
 		[ "$?" -ne "0" ] && echo -ne "failed!\n" || echo -ne "success!\n"
