@@ -1,5 +1,7 @@
 #!/bin/bash
 
+CREATE_LATEST=""
+
 usage() {
 	echo "
 Usage:
@@ -28,10 +30,10 @@ while [[ $# -gt 0 ]]; do
 			shift
 			shift
 		;;
-		--create-latest)
-			CREATE_LATEST=true
-			shift
-		;;
+                --create-latest)
+                        CREATE_LATEST=true
+                        shift
+                ;;
 		--dir-backup)
 			DIR_BACKUP="${2:-$DIR_BACKUP}"
 			shift
@@ -77,7 +79,7 @@ else
 			mkdir -p "${DIR_TEMP}"
 			tar -zcf "${DIR_TEMP}/${FILENAME}" -C "${DIR}" .
 			/usr/bin/aws s3 cp "${DIR_TEMP}/${FILENAME}" "${S3_PATH}/${DATE}/${APP_NAME}/${FILENAME}" --quiet
-			if [ "${CREATE_LATEST}" ]; then
+			if [ -n "${CREATE_LATEST}" ]; then
 				echo 'create latest'
 				/usr/bin/aws s3 cp "${S3_PATH}/${DATE}/${APP_NAME}/${FILENAME}" "${S3_PATH}/latest/${APP_NAME}/${FILENAME_LATEST}" --quiet
 			fi
