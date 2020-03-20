@@ -1,5 +1,6 @@
 FROM ubuntu:18.04
 
+ENV CREATE_LATEST="false"
 ENV CRON="0 * * * *"
 
 RUN apt-get update && apt-get install -y \
