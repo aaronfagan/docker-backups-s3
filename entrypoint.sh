@@ -31,10 +31,10 @@ dpkg-reconfigure -f noninteractive tzdata > /dev/null 2>&1
 aws configure set default.region ${AWS_DEFAULT_REGION}
 aws configure set default.output json
 
-if [ "$(echo ${CREATE_LATEST} | tr A-Z a-z" == "true" ]; then
-    echo "${CRON} root /root/backups.sh --app-name '${APP_NAME}' --dir-backup '${DIR_BACKUP}' --s3-path '${S3_PATH}' > /proc/1/fd/1" > /etc/cron.d/backup
+if [ "${CREATE_LATEST}" ]; then
+    echo "${CRON} root /root/backups.sh --app-name '${APP_NAME}' --dir-backup '${DIR_BACKUP}' --s3-path '${S3_PATH}' --create-latest > /proc/1/fd/1" > /etc/cron.d/backup
 else
-    echo "${CRON} root /root/backups.sh --app-name '${APP_NAME}' --dir-backup '${DIR_BACKUP}' --s3-path '${S3_PATH}' --create-latest > /proc/1/fd/1" > /etc/cron.d/backups
+    echo "${CRON} root /root/backups.sh --app-name '${APP_NAME}' --dir-backup '${DIR_BACKUP}' --s3-path '${S3_PATH}' > /proc/1/fd/1" > /etc/cron.d/backups
 fi
 
 /etc/init.d/cron start > /dev/null 2>&1
