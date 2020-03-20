@@ -6,14 +6,16 @@ Usage:
     ./$(basename "$0") [options]
 
 Options:
-    --app-name         The name of your app. REQUIRED.
-    --dir-backup       The directory to backup. REQUIRED.
-    --s3-path          The full Amazon S3 bucket path. REQUIRED.
+    --app-name        The name of your app. REQUIRED.
+    --create-latest   Create a latest folder with most recent backups.
+    --dir-backup      The directory to backup. REQUIRED.
+    --s3-path         The full Amazon S3 bucket path. REQUIRED.
 
 Example:
     ./$(basename "$0") \\
     --app-name my-app \\
     --dir-backup /data \\
+    --create-latest \\
     --s3-path s3://my-bucket/backups
 "
 }
@@ -24,6 +26,10 @@ while [[ $# -gt 0 ]]; do
 		--app-name)
 			APP_NAME="${2:-$APP_NAME}"
 			shift
+			shift
+		;;
+		--create-latest)
+			CREATE_LATEST=true
 			shift
 		;;
 		--dir-backup)
