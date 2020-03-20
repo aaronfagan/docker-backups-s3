@@ -25,7 +25,7 @@ Variables without default are required.
 - The directory on your host that you want to backup.
 
 **`CREATE_LATEST`**
-- Whether to create a `/latest` folder on AS S3, with your most recent backup.
+- Whether to create a `/latest` folder at your `S3_PATH`, with your most recent backup.
 
 **`CRON`**
 - **Default:** `0 0 * * *` (Daily, midnight)
