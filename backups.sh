@@ -29,7 +29,7 @@ while [[ $# -gt 0 ]]; do
 			shift
 		;;
 		--create-latest)
-			CREATE_LATEST=true
+			CREATE_LATEST="${2:-true}"
 			shift
 		;;
 		--dir-backup)
