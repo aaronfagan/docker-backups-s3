@@ -29,7 +29,7 @@ while [[ $# -gt 0 ]]; do
 			shift
 		;;
 		--create-latest)
-			CREATE_LATEST="${2:-true}"
+			CREATE_LATEST=true
 			shift
 		;;
 		--dir-backup)
@@ -78,6 +78,7 @@ else
 			tar -zcf "${DIR_TEMP}/${FILENAME}" -C "${DIR}" .
 			/usr/bin/aws s3 cp "${DIR_TEMP}/${FILENAME}" "${S3_PATH}/${DATE}/${APP_NAME}/${FILENAME}" --quiet
 			if [ "${CREATE_LATEST}" ]; then
+				echo 'create latest'
 				/usr/bin/aws s3 cp "${S3_PATH}/${DATE}/${APP_NAME}/${FILENAME}" "${S3_PATH}/latest/${APP_NAME}/${FILENAME_LATEST}" --quiet
 			fi
 			rm -rf "${DIR_TEMP}"
