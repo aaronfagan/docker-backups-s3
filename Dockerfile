@@ -1,5 +1,7 @@
 FROM ubuntu:18.04
 
+ARG DEBIAN_FRONTEND=noninteractive
+
 ENV CREATE_LATEST="false"
 ENV CRON="0 * * * *"
 
