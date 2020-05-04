@@ -4,9 +4,6 @@ This image is an always-on solution to automatically back up mounted volumes to 
 ## Environment Variables
 Variables without default are required.
 
-**`APP_NAME`**
-- The name of your application.
-
 **`AWS_ACCESS_KEY_ID`**
 - **Note:** Required only if not hosting on AWS, or not using Amazon EC2 IAM roles.
 - Your IAM user key.
