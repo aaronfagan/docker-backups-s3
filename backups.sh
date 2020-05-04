@@ -11,12 +11,14 @@ Options:
     --app-name        The name of your app. REQUIRED.
     --create-latest   Create a latest folder with most recent backups.
     --dir-backup      The directory to backup. REQUIRED.
+    --exclude         A comma separated list of files & folders to not include in backups.
     --s3-path         The full Amazon S3 bucket path. REQUIRED.
 
 Example:
     ./$(basename "$0") \\
     --app-name my-app \\
     --dir-backup /data \\
+    --exclude .DS_Store \\
     --create-latest \\
     --s3-path s3://my-bucket/backups
 "
@@ -36,6 +38,11 @@ while [[ $# -gt 0 ]]; do
         ;;
 		--dir-backup)
 			DIR_BACKUP="${2:-$DIR_BACKUP}"
+			shift
+			shift
+		;;
+		--exclude)
+			EXCLUDE="${2:-$EXCLUDE}"
 			shift
 			shift
 		;;
@@ -73,11 +80,14 @@ else
 		echo -ne "[$(date +'%F %T')] Backing up ${DIR}..."
 		(
 			set -e
+			for EXCLUSIONS in $(echo ${EXCLUDE} | sed -e "s/,/ /g" -e "s/  / /g"); do
+				EXC+=(--exclude="${EXCLUSIONS}")
+			done
 			DIR_TEMP="${DIR_TEMP}/${DIR_NAME}_${DATE}_${TIME}"
 			FILENAME="$(echo ${DIR_NAME}_${APP_NAME}_${DATE}_${TIME} | tr A-Z a-z | tr ' ' '-' | tr '.' '-').tar.gz"
 			FILENAME_LATEST="$(echo ${DIR_NAME} | tr A-Z a-z | tr ' ' '-' | tr '.' '-').tar.gz"
 			mkdir -p "${DIR_TEMP}"
-			tar -zcf "${DIR_TEMP}/${FILENAME}" -C "${DIR}" .
+			tar -zcf "${DIR_TEMP}/${FILENAME}" -C "${DIR}" . "${EXC[@]}"
 			/usr/bin/aws s3 cp "${DIR_TEMP}/${FILENAME}" "${S3_PATH}/${DATE}/${APP_NAME}/${FILENAME}" --quiet
 			if [ -n "${CREATE_LATEST}" ]; then
 				/usr/bin/aws s3 cp "${S3_PATH}/${DATE}/${APP_NAME}/${FILENAME}" "${S3_PATH}/latest/${APP_NAME}/${FILENAME_LATEST}" --quiet
