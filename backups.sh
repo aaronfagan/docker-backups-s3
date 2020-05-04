@@ -30,10 +30,10 @@ while [[ $# -gt 0 ]]; do
 			shift
 			shift
 		;;
-                --create-latest)
-                        CREATE_LATEST=true
-                        shift
-                ;;
+        --create-latest)
+                CREATE_LATEST=true
+                shift
+        ;;
 		--dir-backup)
 			DIR_BACKUP="${2:-$DIR_BACKUP}"
 			shift
@@ -69,7 +69,7 @@ else
 	TIME=`date +%H-%M-%S`
 	DIR_TEMP="/tmp/docker-backups"
 	for DIR in ${DIR_BACKUP}/*; do
-		DIR_NAME=${DIR//\/data\//}
+		DIR_NAME=$(basename ${DIR})
 		echo -ne "[$(date +'%F %T')] Backing up ${DIR}..."
 		(
 			set -e
