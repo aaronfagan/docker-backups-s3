@@ -3,7 +3,6 @@ set -e
 shopt -s dotglob
 
 VARS_REQUIRED=(
-	APP_NAME
 	AWS_DEFAULT_REGION
 	CRON
 	DIR_BACKUP
