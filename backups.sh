@@ -81,7 +81,7 @@ else
 		(
 			set -e
 			for EXCLUSIONS in $(echo ${EXCLUDE} | sed -e "s/,/ /g" -e "s/  / /g"); do
-				EXC+=(--exclude="${EXCLUSIONS}")
+				EXC+=(--exclude="${DIR}${EXCLUSIONS}")
 			done
 			DIR_TEMP="${DIR_TEMP}/${DIR_NAME}_${DATE}_${TIME}"
 			FILENAME="$(echo ${DIR_NAME}_${APP_NAME}_${DATE}_${TIME} | tr A-Z a-z | tr ' ' '-' | tr '.' '-').tar.gz"
