@@ -54,10 +54,10 @@ backup() {
 while [[ $# -gt 0 ]]; do
 	KEY="$1"
 	case ${KEY} in
-        --create-latest)
-                CREATE_LATEST=true
-                shift
-        ;;
+		--create-latest)
+			CREATE_LATEST=true
+			shift
+		;;
 		--dir-backup)
 			DIR_BACKUP="${2:-$DIR_BACKUP}"
 			shift
@@ -69,9 +69,9 @@ while [[ $# -gt 0 ]]; do
 			shift
 		;;
 		--recursive)
-                RECURSIVE=true
-                shift
-        ;;
+			RECURSIVE=true
+			shift
+		;;
 		--s3-path)
 			S3_PATH="${2:-$S3_PATH}"
 			shift
