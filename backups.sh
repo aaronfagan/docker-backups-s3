@@ -75,8 +75,8 @@ else
 	DATE=`date +%Y-%m-%d`
 	TIME=`date +%H-%M-%S`
 	DIR_TEMP="/tmp/docker-backups"
-	DIR_NAME=$(basename ${DIR})
-	echo -ne "[$(date +'%F %T')] Backing up ${DIR}..."
+	DIR_NAME=$(basename ${DIR_BACKUP})
+	echo -ne "[$(date +'%F %T')] Backing up ${DIR_BACKUP}..."
 	(
 		set -e
 		for EXC in $(echo ${EXCLUDE} | sed -e "s/,/ /g" -e "s/  / /g"); do
@@ -86,7 +86,7 @@ else
 		FILENAME="$(echo ${DIR_NAME}_${APP_NAME}_${DATE}_${TIME} | tr A-Z a-z | tr ' ' '-' | tr '.' '-').tar.gz"
 		FILENAME_LATEST="$(echo ${DIR_NAME} | tr A-Z a-z | tr ' ' '-' | tr '.' '-').tar.gz"
 		mkdir -p "${DIR_TEMP}"
-		tar "${EXCLUSIONS[@]}" -zcf "${DIR_TEMP}/${FILENAME}" -C "${DIR}" .
+		tar "${EXCLUSIONS[@]}" -zcf "${DIR_TEMP}/${FILENAME}" -C "${DIR_BACKUP}" .
 		/usr/bin/aws s3 cp "${DIR_TEMP}/${FILENAME}" "${S3_PATH}/${DATE}/${APP_NAME}/${FILENAME}" --quiet
 		if [ -n "${CREATE_LATEST}" ]; then
 			/usr/bin/aws s3 cp "${S3_PATH}/${DATE}/${APP_NAME}/${FILENAME}" "${S3_PATH}/latest/${APP_NAME}/${FILENAME_LATEST}" --quiet
