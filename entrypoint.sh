@@ -32,11 +32,9 @@ dpkg-reconfigure -f noninteractive tzdata > /dev/null 2>&1
 [ "${DIR_EXCLUDE}" ] || DIR_EXCLUDE=null
 
 for DIR in $(echo ${DIR_BACKUP} | tr A-Z a-z | sed -e "s/,/ /g" -e "s/  / /g"); do
-	if [[ ! ${DIR} == *"${DIR_EXCLUDE}"* ]]; then
-		DIR=$(echo ${DIR} | tr A-Z a-z | sed -e "s/\///")
-		FILENAME="backup-${DIR//\//-}"
-		echo "${CRON} root /root/backups.sh --app-name '$(basename ${DIR})' --dir-backup '/${DIR}' --s3-path '${S3_PATH}' $([ "$(echo ${CREATE_LATEST} | tr A-Z a-z)" == "true" ] && echo "--create-latest" || echo -e "\b") $([ "$(echo ${EXCLUDE} | tr A-Z a-z)" ] && echo "--exclude '${EXCLUDE}'" || echo -e "\b") > /proc/1/fd/1" > /etc/cron.d/${FILENAME}
-	fi
+	DIR=$(echo ${DIR} | tr A-Z a-z | sed -e "s/\///")
+	FILENAME="backup-${DIR//\//-}"
+	echo "${CRON} root /root/backups.sh --app-name '$(basename ${DIR})' --dir-backup '/${DIR}' --s3-path '${S3_PATH}' $([ "$(echo ${CREATE_LATEST} | tr A-Z a-z)" == "true" ] && echo "--create-latest" || echo -e "\b") $([ "$(echo ${EXCLUDE} | tr A-Z a-z)" ] && echo "--exclude '${EXCLUDE}'" || echo -e "\b") > /proc/1/fd/1" > /etc/cron.d/${FILENAME}
 done
 
 /etc/init.d/cron start > /dev/null 2>&1
