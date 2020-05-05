@@ -3,7 +3,6 @@ set -e
 shopt -s dotglob
 
 VARS_REQUIRED=(
-	APP_NAME
 	AWS_DEFAULT_REGION
 	CRON
 	DIR_BACKUP
@@ -35,7 +34,7 @@ dpkg-reconfigure -f noninteractive tzdata > /dev/null 2>&1
 for DIR in $(echo ${DIR_BACKUP} | sed -e "s/,/ /g" -e "s/  / /g"); do
 	DIR=$(echo ${DIR} | tr A-Z a-z | sed -e "s/\///")
 	FILENAME="backup-${DIR//\//-}"
-	echo "${CRON} root /root/backups.sh --app-name '${APP_NAME}' --dir-backup '/${DIR}' --s3-path '${S3_PATH}' $([ "$(echo ${CREATE_LATEST} | tr A-Z a-z)" == "true" ] && echo "--create-latest" || echo -e "\b") $([ "$(echo ${EXCLUDE} | tr A-Z a-z)" ] && echo "--exclude '${EXCLUDE}'" || echo -e "\b") > /proc/1/fd/1" > /etc/cron.d/${FILENAME}
+	echo "${CRON} root /root/backups.sh --dir-backup '/${DIR}' --s3-path '${S3_PATH}' $([ "$(echo ${CREATE_LATEST} | tr A-Z a-z)" == "true" ] && echo "--create-latest" || echo -e "\b") $([ "$(echo ${EXCLUDE} | tr A-Z a-z)" ] && echo "--exclude '${EXCLUDE}'" || echo -e "\b") $([ "$(echo ${RECURSIVE} | tr A-Z a-z)" == "true" ] && echo "--recursive" || echo -e "\b") > /proc/1/fd/1" > /etc/cron.d/${FILENAME}
 done
 
 /etc/init.d/cron start > /dev/null 2>&1
