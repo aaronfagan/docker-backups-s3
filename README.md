@@ -31,7 +31,7 @@ Variables without default are required.
 
 **`RECURSIVE`**
 - **Default:** `false`
-- Backs up all folders under `DIR_MOUNT` into separate files.
+- Backs up all folders under `DIR_MOUNT` into separate zip files.
 
 **`S3_PATH`**
 - **Example:** `s3://my-bucket/path/to/backups`
