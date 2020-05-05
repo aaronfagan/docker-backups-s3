@@ -32,10 +32,10 @@ while [[ $# -gt 0 ]]; do
 			shift
 			shift
 		;;
-        --create-latest)
-                CREATE_LATEST=true
-                shift
-        ;;
+		--create-latest)
+			CREATE_LATEST=true
+			shift
+		;;
 		--dir-backup)
 			DIR_BACKUP="${2:-$DIR_BACKUP}"
 			shift
