@@ -16,7 +16,7 @@ Variables without default are required.
 - The AWS region your S3 bucket is hosted in.
 
 **`DIR_BACKUP`**
-- The directory on your container that you want to backup.
+- Comma separated list of directories on your container that you want to backup.
 
 **`DIR_MOUNT`**
 - The directory on your host that you want to backup.
@@ -29,9 +29,14 @@ Variables without default are required.
 - **Default:** `0 0 * * *` (Daily, midnight)
 - Standard cron format. How often to run backups.
 
+**`EXCLUDE`**
+- A comma separated list of files & folders to exclude from backups.
+- Relative to the folder being backed up.
+- Applies to **all** backup scripts at run time.
+
 **`RECURSIVE`**
 - **Default:** `false`
-- Backs up all folders under `DIR_MOUNT` into separate zip files.
+- Backup all folders under `DIR_MOUNT` into separate zip files.
 
 **`S3_PATH`**
 - **Example:** `s3://my-bucket/path/to/backups`
