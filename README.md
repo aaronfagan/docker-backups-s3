@@ -29,6 +29,10 @@ Variables without default are required.
 - **Default:** `0 0 * * *` (Daily, midnight)
 - Standard cron format. How often to run backups.
 
+**`RECURSIVE`**
+- **Default:** `false`
+- Backs up all folders under `DIR_MOUNT` into separate files.
+
 **`S3_PATH`**
 - **Example:** `s3://my-bucket/path/to/backups`
 - The AWS S3 bucket URL and path to upload backups to.
