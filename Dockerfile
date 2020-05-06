@@ -2,7 +2,6 @@ FROM ubuntu:18.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-ENV CREATE_LATEST="false"
 ENV CRON="0 * * * *"
 
 RUN apt-get update && apt-get install -y \
