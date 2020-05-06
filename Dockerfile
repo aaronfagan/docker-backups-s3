@@ -2,7 +2,7 @@ FROM ubuntu:18.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-ENV CRON="0 * * * *"
+ENV CRON="0 0 * * *"
 
 RUN apt-get update && apt-get install -y \
 		awscli \
