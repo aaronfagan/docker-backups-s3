@@ -29,12 +29,11 @@ dpkg-reconfigure -f noninteractive tzdata > /dev/null 2>&1
 [ "${AWS_SECRET_ACCESS_KEY}" ] && aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY}
 [ "${AWS_DEFAULT_REGION}" ] && aws configure set default.region ${AWS_DEFAULT_REGION}
 [ "${AWS_DEFAULT_OUTPUT}" ] && aws configure set default.output ${AWS_DEFAULT_OUTPUT} || aws configure set default.output json
-[ "${DIR_EXCLUDE}" ] || DIR_EXCLUDE=null
 
 for DIR in $(echo ${DIR_BACKUP} | sed -e "s/,/ /g" -e "s/  / /g"); do
 	DIR=$(echo ${DIR} | tr A-Z a-z | sed -e "s/\///")
 	FILENAME="backup-${DIR//\//-}"
-	echo "${CRON} root /root/backups.sh --dir-backup '/${DIR}' --s3-path '${S3_PATH}' $([ "${CREATE_LATEST}" ] && echo "--create-latest") $([ ${EXCLUDE} ] && echo "--exclude '${EXCLUDE}'") $([ "${RECURSIVE}" ] && echo "--recursive") > /proc/1/fd/1" > /etc/cron.d/${FILENAME}
+	echo "${CRON} root /root/backups.sh --dir-backup '/${DIR}' --s3-path '${S3_PATH}' $([ "${EXCLUDE}" ] && echo "--exclude '${EXCLUDE}'") $([ "$(echo ${CREATE_LATEST} | tr A-Z a-z)" == "true" ] && echo "--create-latest") $([ "$(echo ${RECURSIVE} | tr A-Z a-z)" == "true" ] && echo "--recursive") > /proc/1/fd/1" > /etc/cron.d/${FILENAME}
 done
 
 /etc/init.d/cron start > /dev/null 2>&1
