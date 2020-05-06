@@ -34,7 +34,7 @@ dpkg-reconfigure -f noninteractive tzdata > /dev/null 2>&1
 for DIR in $(echo ${DIR_BACKUP} | sed -e "s/,/ /g" -e "s/  / /g"); do
 	DIR=$(echo ${DIR} | tr A-Z a-z | sed -e "s/\///")
 	FILENAME="backup-${DIR//\//-}"
-	echo "${CRON} root /root/backups.sh --dir-backup '/${DIR}' --s3-path '${S3_PATH}' $([ "${CREATE_LATEST}" ] && echo "--create-latest" || echo -e "\b") $([ ${EXCLUDE} ] && echo "--exclude '${EXCLUDE}'" || echo -e "\b") $([ "${RECURSIVE}" ] && echo "--recursive" || echo -e "\b") > /proc/1/fd/1" > /etc/cron.d/${FILENAME}
+	echo "${CRON} root /root/backups.sh --dir-backup '/${DIR}' --s3-path '${S3_PATH}' $([ "${CREATE_LATEST}" ] && echo "--create-latest") $([ ${EXCLUDE} ] && echo "--exclude '${EXCLUDE}'") $([ "${RECURSIVE}" ] && echo "--recursive") > /proc/1/fd/1" > /etc/cron.d/${FILENAME}
 done
 
 /etc/init.d/cron start > /dev/null 2>&1
