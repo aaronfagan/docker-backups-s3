@@ -52,8 +52,7 @@ backup() {
 }
 
 while [[ $# -gt 0 ]]; do
-	KEY="$1"
-	case ${KEY} in
+	case ${1} in
 		--create-latest)
 			CREATE_LATEST=true
 			shift
