@@ -18,12 +18,12 @@ for VAR in "${VARS_REQUIRED[@]}"; do
 done
 if [ "${VAR_ERROR}" ]; then exit 1; fi
 
-cp -rf /opt/backups.sh /root/backups.sh
-chmod +x /root/backups.sh
-
 ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime && \
 echo "${TZ}" > /etc/timezone && \
 dpkg-reconfigure -f noninteractive tzdata > /dev/null 2>&1
+
+cp -rf /opt/backups.sh /root/backups.sh
+chmod +x /root/backups.sh
 
 [ "${AWS_ACCESS_KEY_ID}" ] && aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID}
 [ "${AWS_SECRET_ACCESS_KEY}" ] && aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY}
