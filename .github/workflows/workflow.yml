@@ -21,6 +21,16 @@ jobs:
         with:
           version: latest
 
+# Buildx - Cache
+      - name: Docker - Buildx - Cache
+        uses: actions/cache@master
+        id: cache
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
 # Docker Hub Login
       - name: Docker - Hub - Login
         run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
