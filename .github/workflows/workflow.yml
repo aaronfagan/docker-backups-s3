@@ -32,8 +32,8 @@ jobs:
 
 # Buildx - Install
       - name: Docker - Buildx - Install
+        id: buildx
         uses: docker/setup-buildx-action@master
-
 
 # Docker Image - Tag, Build, & Push
       - name: Docker - Image - Push
