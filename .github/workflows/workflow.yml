@@ -31,12 +31,12 @@ jobs:
           password: ${{ secrets.DOCKER_TOKEN }}
 
 # Buildx - Install
-# Install Buildx
       - name: Docker - Buildx - Install
         id: buildx
-        uses: crazy-max/ghaction-docker-buildx@v1
+        uses: docker/setup-buildx-action@v1
         with:
           version: latest
+
 
 # Docker Image - Tag, Build, & Push
       - name: Docker - Image - Push
@@ -45,7 +45,7 @@ jobs:
             --cache-from type=local,src=/tmp/.buildx-cache \
             --cache-to type=local,dest=/tmp/.buildx-cache \
             --tag ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE }}:latest \
-            --platform linux/amd64,linux/arm/v7,linux/arm64 .
+            --platform linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x .
 
 # # Docker Image - Tag, Build, & Push
 #       - name: Docker - Image - Push
