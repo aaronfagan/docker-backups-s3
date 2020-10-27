@@ -21,9 +21,9 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
-# # Buildx - Install
-#       - name: Docker - Buildx - Install
-#         uses: docker/setup-buildx-action@v1
+# Buildx - Install
+      - name: Docker - Buildx - Install
+        uses: docker/setup-buildx-action@v1
 
 # Docker Image - Tag, Build, & Push
       - name: Docker - Image - Push
