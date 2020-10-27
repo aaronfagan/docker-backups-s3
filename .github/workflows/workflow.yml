@@ -14,28 +14,28 @@ jobs:
       - name: Checkout - Repository
         uses: actions/checkout@master
 
-# Docker Hub Login
-      - name: Docker - Hub - Login
+# Docker - Login
+      - name: Docker - Login
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
 # Install - QEMU
-      - name: Docker - QEMU - Install
+      - name: Install - QEMU
         uses: docker/setup-qemu-action@v1
         with:
           platforms: all
 
 #  Install - Buildx
-      - name: Docker - Buildx - Install
+      - name: Install - Buildx
         id: buildx
         uses: docker/setup-buildx-action@v1
         with:
           version: latest
 
-# Cache
-      - name: Docker - Buildx - Cache
+#  Install - Buildx - Cache
+      - name: Install - Buildx - Cache
         uses: actions/cache@v2
         with:
           path: /tmp/.buildx-cache
@@ -43,8 +43,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
 
-# Docker Image - Tag, Build, & Push
-      - name: Docker - Image - Push
+# Docker - Image - Build & Push
+      - name: Docker - Build & Push
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -54,3 +54,4 @@ jobs:
           tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE }}:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
+  
