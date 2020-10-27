@@ -11,8 +11,17 @@ jobs:
     steps:
 
 # Checkout Repo
-      - name: 'Checkout - Repository'
+      - name: Checkout - Repository
         uses: actions/checkout@master
+
+# Cache
+      - name: Docker - Buildx - Cache
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
 
 # Docker Hub Login
       - name: Docker - Hub - Login
@@ -23,15 +32,7 @@ jobs:
 
 # Buildx - Install
       - name: Docker - Buildx - Install
-        uses: docker/setup-buildx-action@v1
-
-      - name: Cache Docker layers
-        uses: actions/cache@v2
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
+        uses: docker/setup-buildx-action@master
 
 # Docker Image - Tag, Build, & Push
       - name: Docker - Image - Push
@@ -39,7 +40,7 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          #platforms: linux/amd64,linux/arm/v7,linux/arm64
+          platforms: linux/amd64,linux/arm/v7,linux/arm64
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE }}:latest
           cache-from: type=local,src=/tmp/.buildx-cache
