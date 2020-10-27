@@ -1,0 +1,33 @@
+env:
+  DOCKER_IMAGE: 'backups-s3'
+
+name: 'Workflow'
+on: push
+
+jobs:
+  build:
+    name: 'Build'
+    runs-on: ubuntu-latest
+    steps:
+
+# Checkout Repo
+      - name: 'Checkout - Repository'
+        uses: actions/checkout@master
+
+# Install Buildx
+      - name: Docker - Buildx - Install
+        id: buildx
+        uses: crazy-max/ghaction-docker-buildx@v1
+        with:
+          version: latest
+
+# Docker Hub Login
+      - name: Docker - Hub - Login
+        run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+# Docker Image - Tag, Build, & Push
+      - name: Docker - Image - Push
+        run: |
+          docker buildx build --push \
+            --tag ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE }}:latest \
+            --platform linux/amd64,linux/arm/v7,linux/arm64 .
