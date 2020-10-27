@@ -39,8 +39,7 @@ jobs:
       - name: Docker - Image - Push
         run: |
           docker buildx build --push \
-            --cache-from: type=local,src=/tmp/.buildx-cache \
-            --cache-to: type=local,dest=/tmp/.buildx-cache \
+            --no-cache \
             --tag ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE }}:latest \
             --platform linux/amd64,linux/arm/v7,linux/arm64 .
 
