@@ -31,9 +31,12 @@ jobs:
           password: ${{ secrets.DOCKER_TOKEN }}
 
 # Buildx - Install
+# Install Buildx
       - name: Docker - Buildx - Install
         id: buildx
-        uses: docker/setup-buildx-action@master
+        uses: crazy-max/ghaction-docker-buildx@v1
+        with:
+          version: latest
 
 # Docker Image - Tag, Build, & Push
       - name: Docker - Image - Push
