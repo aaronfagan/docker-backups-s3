@@ -16,7 +16,7 @@ COPY ./ /root/src
 
 RUN chmod -R +x /root/src
 
-HEALTHCHECK CMD /root/src/health.sh || exit 1
+HEALTHCHECK CMD /root/src/health.sh
 
 ENTRYPOINT ["/root/src/entrypoint.sh"]
 
