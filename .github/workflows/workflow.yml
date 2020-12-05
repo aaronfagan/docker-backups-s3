@@ -1,5 +1,5 @@
 env:
-  DOCKER_IMAGE: 'backups-s3'
+  APP: 'backups-s3'
 
 name: 'Workflow'
 on: push
@@ -34,23 +34,22 @@ jobs:
         with:
           version: latest
 
-#  Install - Buildx - Cache
+# Docker - Build & Push
       - name: Install - Buildx - Cache
         uses: actions/cache@v2
         with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          path: /tmp/.cache-${{ env.APP }}
+          key: ${{ runner.os }}-cache-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-buildx-
+            ${{ runner.os }}-cache-
 
-# Docker - Image - Build & Push
       - name: Docker - Build & Push
         uses: docker/build-push-action@v2
         with:
           context: .
           platforms: linux/amd64,linux/arm64,linux/ppc64le,linux/s390x,linux/arm/v7,linux/arm/v8
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE }}:latest
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache
+          tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.APP }}:latest
+          cache-from: type=local,src=/tmp/.cache-${{ env.APP }}
+          cache-to: type=local,dest=/tmp/.cache-${{ env.APP }}
   
