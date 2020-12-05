@@ -24,8 +24,8 @@ dpkg-reconfigure -f noninteractive tzdata > /dev/null 2>&1
 
 [ "${AWS_ACCESS_KEY_ID}" ] && aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID}
 [ "${AWS_SECRET_ACCESS_KEY}" ] && aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY}
-[ "${AWS_DEFAULT_REGION}" ] && aws configure set region ${AWS_DEFAULT_REGION}
-[ "${AWS_DEFAULT_OUTPUT}" ] && aws configure set output ${AWS_DEFAULT_OUTPUT} || aws configure set output json
+[ "${AWS_DEFAULT_REGION}" ] && aws configure set default.region ${AWS_DEFAULT_REGION}
+[ "${AWS_DEFAULT_OUTPUT}" ] && aws configure set default.output ${AWS_DEFAULT_OUTPUT} || aws configure set default.output json
 
 for DIR in $(echo ${DIR_BACKUP} | sed -e "s/,/ /g" -e "s/  / /g"); do
 	DIR=$(echo ${DIR} | tr A-Z a-z | sed -e "s/\///")
