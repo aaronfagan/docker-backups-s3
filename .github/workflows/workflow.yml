@@ -43,7 +43,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-cache-
 
-      - name: Docker - Build & Push
+      - name: Docker - Build/Push
         uses: docker/build-push-action@v2
         with:
           context: .
