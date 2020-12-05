@@ -35,7 +35,7 @@ jobs:
           version: latest
 
 # Docker - Build & Push
-      - name: Install - Buildx - Cache
+      - name: Docker - Cache
         uses: actions/cache@v2
         with:
           path: /tmp/.cache-${{ env.APP }}
