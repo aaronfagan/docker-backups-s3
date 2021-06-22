@@ -28,9 +28,9 @@ Example:
 backup() {
 	DATE=`date +%Y-%m-%d`
 	TIME=`date +%H-%M-%S`
-	APP_NAME="$(basename "$(dirname "${1}")")"
+	APP_NAME="$(basename "$(dirname "${1}")" | tr A-Z a-z | tr ' ' '-' | tr '.' '-')"
 	DIR_TEMP="/tmp/docker-backups"
-	DIR_NAME=$(basename ${1})
+	DIR_NAME=$(basename ${1} | tr A-Z a-z | tr ' ' '-' | tr '.' '-')
 	echo -ne "[$(date +'%F %T')] Backing up ${1}..."
 	(
 		set -e
@@ -38,8 +38,8 @@ backup() {
 			EXCLUSIONS+=(--exclude="${EXC}")
 		done
 		DIR_TEMP="${DIR_TEMP}/${DIR_NAME}_${DATE}_${TIME}"
-		FILENAME="$(echo ${DIR_NAME}_${APP_NAME}_${DATE}_${TIME} | tr A-Z a-z | tr ' ' '-' | tr '.' '-').tar.gz"
-		FILENAME_LATEST="$(echo ${DIR_NAME} | tr A-Z a-z | tr ' ' '-' | tr '.' '-').tar.gz"
+		FILENAME="$(echo ${DIR_NAME}_${APP_NAME}_${DATE}_${TIME}).tar.gz"
+		FILENAME_LATEST="$(echo ${DIR_NAME}).tar.gz"
 		mkdir -p "${DIR_TEMP}"
 		tar "${EXCLUSIONS[@]}" -zcf "${DIR_TEMP}/${FILENAME}" -C "${1}" .
 		/usr/bin/aws s3 cp "${DIR_TEMP}/${FILENAME}" "${S3_PATH}/${DATE}/${APP_NAME}/${FILENAME}" --quiet
