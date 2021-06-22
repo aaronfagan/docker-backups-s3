@@ -28,25 +28,28 @@ Example:
 backup() {
 	DATE=`date +%Y-%m-%d`
 	TIME=`date +%H-%M-%S`
-	APP_NAME="$(basename "$(dirname "${1}")" | tr A-Z a-z | tr ' ' '-' | tr '.' '-')"
-	DIR_TEMP="/tmp/docker-backups"
-	DIR_NAME=$(basename ${1} | tr A-Z a-z | tr ' ' '-' | tr '.' '-')
+	APP_NAME=$(basename ${1} | tr A-Z a-z | tr ' ' '-' | tr '.' '-')
+	DIR_NAME="$(basename "$(dirname "${1}")" | tr A-Z a-z | tr ' ' '-' | tr '.' '-')"
+	DIR_TMP="/tmp/docker-backups"
 	echo -ne "[$(date +'%F %T')] Backing up ${1}..."
 	(
 		set -e
 		for EXC in $(echo ${EXCLUDE} | sed -e "s/,/ /g" -e "s/  / /g"); do
 			EXCLUSIONS+=(--exclude="${EXC}")
 		done
-		DIR_TEMP="${DIR_TEMP}/${DIR_NAME}_${DATE}_${TIME}"
-		FILENAME="$(echo ${DIR_NAME}_${APP_NAME}_${DATE}_${TIME}).tar.gz"
-		FILENAME_LATEST="$(echo ${DIR_NAME}).tar.gz"
-		mkdir -p "${DIR_TEMP}"
-		tar "${EXCLUSIONS[@]}" -zcf "${DIR_TEMP}/${FILENAME}" -C "${1}" .
-		/usr/bin/aws s3 cp "${DIR_TEMP}/${FILENAME}" "${S3_PATH}/${DATE}/${APP_NAME}/${FILENAME}" --quiet
+		DIR_TMP="${DIR_TMP}/${APP_NAME}_${DATE}_${TIME}"
+		FILENAME="$(echo ${APP_NAME}_${DIR_NAME}_${DATE}_${TIME}).tar.gz"
+		FILENAME_LATEST="$(echo ${APP_NAME}).tar.gz"
+		FILE_LOCAL="${DIR_TMP}/${FILENAME}"
+		FILE_REMOTE="${S3_PATH}/${DATE}/${DIR_NAME}/${FILENAME}"
+		FILE_REMOTE_LATEST="${S3_PATH}/latest/${DIR_NAME}/${FILENAME_LATEST}"
+		mkdir -p "${DIR_TMP}"
+		tar "${EXCLUSIONS[@]}" -zcf "${FILE_LOCAL}" -C "${1}" .
+		/usr/bin/aws s3 cp "${FILE_LOCAL}" "${FILE_REMOTE}" --quiet
 		if [ -n "${CREATE_LATEST}" ]; then
-			/usr/bin/aws s3 cp "${S3_PATH}/${DATE}/${APP_NAME}/${FILENAME}" "${S3_PATH}/latest/${APP_NAME}/${FILENAME_LATEST}" --quiet
+			/usr/bin/aws s3 cp "${FILE_REMOTE}" "${FILE_REMOTE_LATEST}" --quiet
 		fi
-		rm -rf "${DIR_TEMP}"
+		rm -rf "${DIR_TMP}"
 	)
 	[ "$?" -ne "0" ] && echo -ne "failed!\n" || echo -ne "success!\n"
 }
